@@ -55,6 +55,23 @@ class App extends Component {
     })
   }
 
+  updateListItemSalary= (id, newSalary) => {
+    this.setState(({data}) => {
+      const newData = data.map(item => {
+        if (item.id === id) {
+          item.salary = newSalary;
+        }
+        return item;
+      })
+
+      return {
+        data: newData
+      }
+
+    })
+
+  }
+
   // onToggleIncrease = (id) => {
     // First way using slice() and findIndex()
     // this.setState(({data}) => {
@@ -123,6 +140,8 @@ class App extends Component {
         return items.filter(item => item.like);
       case 'moreThan1000':
         return items.filter(item => item.salary > 1000);
+      case 'premia':
+        return items.filter(item => item.increase);
       default:
         return items;
     }
@@ -138,7 +157,6 @@ class App extends Component {
   const totalEmpl = data.length;
   const increasedEmpl = data.filter(item => item.increase).length;
   const visibleData = this.filterPost(this.searchEmp(data, term), filter)
-
 
     return(
       <div className="app">
@@ -156,6 +174,7 @@ class App extends Component {
               data={visibleData}
               onDelete={this.deleteListItem}
               onToggleProp={this.onToggleProp}
+              onUpdateSalary={this.updateListItemSalary}
               // onToggleIncrease={this.onToggleIncrease}
               // onToggleRise={this.onToggleRise}
               />
