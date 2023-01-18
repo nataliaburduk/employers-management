@@ -17,14 +17,37 @@ class EmployersAddForm extends Component {
          })
     }
 
+    isValidFields = () => {
+        const {name, salary} = this.state;
+        const nameReg = /^[a-zA-Z]+ ?[a-zA-Z]*$/;
+
+        if ((name.match(nameReg) && name.length >= 3) && (+salary > 0)) {
+            return true;
+        } else {
+            return false
+        }
+    }
+
+    setDefaultState = () => {
+        this.setState({
+            name: '',
+            salary: ''
+        })
+    }
+
+    onFormSubmit = (e) => {
+        this.isValidFields();
+        this.props.addItemToList(e, {...this.state}); 
+        this.setDefaultState()
+    }
+
     render() {
         const {name, salary} = this.state;
-        const {addItemToList} = this.props;
 
         return (
           <div className="app-add-form">
               <h3>Добавьте нового сотрудника</h3>
-              <form onSubmit={(e) => addItemToList(e, { name, salary })}
+              <form onSubmit={this.onFormSubmit}
                   className="add-form d-flex">
                   <input onChange={this.onValueChange}type="text"
                       className="form-control new-post-label"
@@ -37,7 +60,7 @@ class EmployersAddForm extends Component {
                       name="salary"
                       value={salary}/>
     
-                  <button type="submit" className="btn btn-outline-light">Добавить</button>
+                  <button disabled={!this.isValidFields()} type="submit" className="btn btn-outline-light">Добавить</button>
               </form>
           </div>
       )
