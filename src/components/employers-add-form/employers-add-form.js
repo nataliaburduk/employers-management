@@ -7,25 +7,35 @@ class EmployersAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: ''
+            salary: '',
+            isNameValid: true,
+            isSalaryValid: true
         }
     }
     
     onValueChange = (e) => {
          this.setState({
-             [e.target.name]: e.target.value
+             [e.target.name]: e.target.value,
+             isNameValid: this.isNameValid(),
+             isSalaryValid: this.isSalaryValid(),
          })
     }
 
     isValidFields = () => {
-        const {name, salary} = this.state;
+        return this.state.isNameValid && this.state.isSalaryValid
+    }
+
+    isNameValid = () => {
+        const {name} = this.state;
         const nameReg = /^[a-zA-Z]+ ?[a-zA-Z]*$/;
 
-        if ((name.match(nameReg) && name.length >= 3) && (+salary > 0)) {
-            return true;
-        } else {
-            return false
-        }
+        return name.match(nameReg) && name.length >= 3; 
+    }
+
+    isSalaryValid = () => {
+        const {salary} = this.state;
+        
+        return +salary > 0;
     }
 
     setDefaultState = () => {
@@ -36,13 +46,37 @@ class EmployersAddForm extends Component {
     }
 
     onFormSubmit = (e) => {
-        this.isValidFields();
-        this.props.addItemToList(e, {...this.state}); 
-        this.setDefaultState()
+        e.preventDefault();
+
+        if (this.isNameValid() && this.isSalaryValid()) {
+            this.props.addItemToList(e, {...this.state}); 
+            this.setDefaultState()
+        }
+
+        this.setState({
+            isNameValid: this.isNameValid(),
+            isSalaryValid: this.isSalaryValid(),
+        })
+    }
+
+    classForInputName = () => {
+       let defaultName = "form-control new-post-label";
+       if (!this.state.isNameValid) {
+            defaultName += ' is-invalid'        
+       }
+        return defaultName
+    }
+
+    classForInputSalary = () => {
+        let defaultSalary =  "form-control new-post-label"
+        if (!this.state.isSalaryValid) {
+            defaultSalary += ' is-invalid'        
+       }
+       return defaultSalary;
     }
 
     render() {
-        const {name, salary} = this.state;
+        const {name, salary, } = this.state;
 
         return (
           <div className="app-add-form">
@@ -50,16 +84,19 @@ class EmployersAddForm extends Component {
               <form onSubmit={this.onFormSubmit}
                   className="add-form d-flex">
                   <input onChange={this.onValueChange}type="text"
-                      className="form-control new-post-label"
+                      className={this.classForInputName()}
                       placeholder="Как его зовут?" 
                       name="name"
-                      value={name}/>
-                  <input onChange={this.onValueChange}type="number"
-                      className="form-control new-post-label"
+                      value={name} 
+                      />
+                    
+                    <input onChange={this.onValueChange}type="number"
+                      className={this.classForInputSalary()}
                       placeholder="З/П в $?" 
                       name="salary"
-                      value={salary}/>
-    
+                      value={salary} 
+                      />
+                   
                   <button disabled={!this.isValidFields()} type="submit" className="btn btn-outline-light">Добавить</button>
               </form>
           </div>
