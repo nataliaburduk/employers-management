@@ -1,0 +1,17 @@
+@import './variables.scss';
+
+body {
+  margin: 50px 0;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $main-color;
+  // background-image: url('./components/img/background.jpg');
+  opacity: 0.25px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
