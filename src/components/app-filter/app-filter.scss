@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+.app-filter {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+}
+
+.btn-group {
+  margin-top: 20px;
+  &:first-child{
+    border-radius: 10px !important;
+  }
+  &:last-child{
+    border-radius: 50px !important;
+  }
+}

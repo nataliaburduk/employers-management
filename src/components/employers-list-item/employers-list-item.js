@@ -1,4 +1,4 @@
-import './employers-list-item.css'
+import './employers-list-item.scss'
 
 const EmployersListItem = (props) => {
 

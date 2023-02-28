@@ -1,5 +1,5 @@
 
-import './app-filter.css'
+import './app-filter.scss'
 
 const AppFilter = (props) => {
 
@@ -13,7 +13,7 @@ const AppFilter = (props) => {
 
   const buttons = buttonsData.map(({name, label}) => {
     const active = props.filter === name;
-    const clazz = active ? 'btn-light' : 'btn-outline-light'
+    const clazz = active ? 'btn-secondary' : 'btn-outline-secondary'
     return (
       <button 
           onClick={() => props.onFilterSelect(name)}
