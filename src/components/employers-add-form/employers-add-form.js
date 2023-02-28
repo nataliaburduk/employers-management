@@ -1,6 +1,5 @@
 import { Component } from 'react';
 
-// import './employers-add-form.css'
 import './employers-add-form.scss';
 
 class EmployersAddForm extends Component {
@@ -98,7 +97,7 @@ class EmployersAddForm extends Component {
                       value={salary} 
                       />
                    
-                  <button disabled={!this.isValidFields()} type="submit" className="btn btn-outline-light">+ Add</button>
+                  <button disabled={!this.isValidFields()} type="submit" className="btn btn-outline-secondary">+ Add</button>
               </form>
           </div>
       )
@@ -106,3 +105,4 @@ class EmployersAddForm extends Component {
 }
 
 export default EmployersAddForm;
+
